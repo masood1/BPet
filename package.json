@@ -13,8 +13,10 @@
         "registry": "https://registry.npmjs.org"
     },
     "dependencies": {
-        "express": "^4.0.0",
         "body-parser": "^1.15.0",
+        "express": "^4.0.0",
+        "mongodb": "3.3.2",
+        "properties-reader": "0.3.1",
         "swaggerize-express": "^4.0.0",
         "swagmock": "~0.0.2"
     },

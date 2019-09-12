@@ -1,51 +1,45 @@
-'use strict';
-var dataProvider = require('../data/pets.js');
+"use strict";
+var dataProvider = require("../data/pets.js");
+var pet = require("../db/pet");
 /**
  * Operations on /pets
  */
 module.exports = {
+  /**
+   * summary: List all pets
+   * description:
+   * parameters: limit
+   * produces:
+   * responses: 200, default
+   */
+  get: function listPets(req, res, next) {
     /**
-     * summary: List all pets
-     * description: 
-     * parameters: limit
-     * produces: 
-     * responses: 200, default
+     * Get the data for response 200
+     * For response `default` status 200 is used.
      */
-    get: function listPets(req, res, next) {
-        /**
-         * Get the data for response 200
-         * For response `default` status 200 is used.
-         */
-        var status = 200;
-        var provider = dataProvider['get']['200'];
-        provider(req, res, function (err, data) {
-            if (err) {
-                next(err);
-                return;
-            }
-            res.status(status).send(data && data.responses);
-        });
-    },
+    var status = 200;
+  },
+  /**
+   * summary: Create a pet
+   * description:
+   * parameters:
+   * produces:
+   * responses: 201, default
+   */
+  post: function createPets(req, res, next) {
     /**
-     * summary: Create a pet
-     * description: 
-     * parameters: 
-     * produces: 
-     * responses: 201, default
+     * Get the data for response 201
+     * For response `default` status 200 is used.
      */
-    post: function createPets(req, res, next) {
-        /**
-         * Get the data for response 201
-         * For response `default` status 200 is used.
-         */
-        var status = 201;
-        var provider = dataProvider['post']['201'];
-        provider(req, res, function (err, data) {
-            if (err) {
-                next(err);
-                return;
-            }
-            res.status(status).send(data && data.responses);
-        });
-    }
+    var status = 201;
+
+    pet.addPet(req.data).then(
+      res => {
+        res.send(status);
+      },
+      rej => {
+        res.send(501);
+      }
+    );
+  }
 };
